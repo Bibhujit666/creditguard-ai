@@ -1,4 +1,4 @@
-## 🚀 Project Highlights
+##  Project Highlights
 
 - Exploratory Data Analysis (EDA) on the UCI Credit Card Default dataset
 - Data cleaning and preprocessing
