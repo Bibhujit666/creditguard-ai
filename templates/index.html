@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditGuard AI — Credit Default Prediction</title>
+    <meta name="description" content="AI-powered credit card default prediction using CatBoost.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="grid-overlay"></div>
+
+    <nav class="nav">
+        <div class="brand">
+            <div class="brand-mark">C</div>
+            <div>
+                <span class="brand-name">CreditGuard</span>
+                <span class="brand-tag">RISK INTELLIGENCE</span>
+            </div>
+        </div>
+        <div class="nav-badge"><span class="pulse"></span> MODEL ONLINE</div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-copy">
+                <div class="eyebrow"><span>✦</span> CREDIT DEFAULT PREDICTION</div>
+                <h1>Know the risk<br><span>before it happens.</span></h1>
+                <p>Enter customer financial details and let our trained model estimate the probability of
+                    next-month credit card default.</p>
+                <div class="hero-stats">
+                    <div><strong>CatBoost</strong><small>Final Model</small></div>
+                    <div><strong>23</strong><small>Input Features</small></div>
+                    <div><strong>0.28</strong><small>Decision Threshold</small></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="orbit orbit-a"></div>
+                <div class="orbit orbit-b"></div>
+                <div class="core-card">
+                    <div class="mini-label">PREDICTION ENGINE</div>
+                    <div class="core-score">AI</div>
+                    <div class="core-caption">CatBoost Intelligence</div>
+                    <div class="signal"><span></span> Live inference ready</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <div class="form-panel glass">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">01 / CUSTOMER PROFILE</div>
+                        <h2>Customer & account</h2>
+                    </div>
+                    <div class="required-note">* Required</div>
+                </div>
+
+                <form id="predictionForm">
+                    <div class="field-grid">
+                        <label class="field">
+                            <span>Credit Limit <b>*</b></span>
+                            <input type="number" name="LIMIT_BAL" min="0" step="1" placeholder="e.g. 50000" required>
+                            <small>NT dollars</small>
+                        </label>
+
+                        <label class="field">
+                            <span>Sex <b>*</b></span>
+                            <select name="SEX" required>
+                                <option value="" selected disabled>Select</option>
+                                <option value="1">1 — Male</option>
+                                <option value="2">2 — Female</option>
+                            </select>
+                        </label>
+
+                        <label class="field">
+                            <span>Education <b>*</b></span>
+                            <select name="EDUCATION" required>
+                                <option value="" selected disabled>Select</option>
+                                <option value="1">1 — Graduate school</option>
+                                <option value="2">2 — University</option>
+                                <option value="3">3 — High school</option>
+                                <option value="4">4 — Others</option>
+                                <option value="5">5 — Unknown / other</option>
+                            </select>
+                        </label>
+
+                        <label class="field">
+                            <span>Marriage <b>*</b></span>
+                            <select name="MARRIAGE" required>
+                                <option value="" selected disabled>Select</option>
+                                <option value="1">1 — Married</option>
+                                <option value="2">2 — Single</option>
+                                <option value="3">3 — Other</option>
+                            </select>
+                        </label>
+
+                        <label class="field">
+                            <span>Age <b>*</b></span>
+                            <input type="number" name="AGE" min="18" max="100" step="1" placeholder="e.g. 35" required>
+                            <small>Years</small>
+                        </label>
+                    </div>
+
+                    <div class="section-head subhead">
+                        <div>
+                            <div class="section-kicker">02 / PAYMENT HISTORY</div>
+                            <h2>Repayment status</h2>
+                        </div>
+                        <div class="info-pill">PAY 0 = most recent</div>
+                    </div>
+
+                    <div class="history-grid">
+                        <label class="field compact"><span>PAY_0 <b>*</b></span><input type="number" name="PAY_0"
+                                step="1" placeholder="-1 to 9" required></label>
+                        <label class="field compact"><span>PAY_2 <b>*</b></span><input type="number" name="PAY_2"
+                                step="1" placeholder="-1 to 9" required></label>
+                        <label class="field compact"><span>PAY_3 <b>*</b></span><input type="number" name="PAY_3"
+                                step="1" placeholder="-1 to 9" required></label>
+                        <label class="field compact"><span>PAY_4 <b>*</b></span><input type="number" name="PAY_4"
+                                step="1" placeholder="-1 to 9" required></label>
+                        <label class="field compact"><span>PAY_5 <b>*</b></span><input type="number" name="PAY_5"
+                                step="1" placeholder="-1 to 9" required></label>
+                        <label class="field compact"><span>PAY_6 <b>*</b></span><input type="number" name="PAY_6"
+                                step="1" placeholder="-1 to 9" required></label>
+                    </div>
+                    <p class="helper">Use the dataset's payment-status codes. Positive values indicate months of payment
+                        delay; negative/zero values represent other repayment statuses in the original dataset.</p>
+
+                    <div class="section-head subhead">
+                        <div>
+                            <div class="section-kicker">03 / BILL STATEMENTS</div>
+                            <h2>Recent bill amounts</h2>
+                        </div>
+                        <div class="info-pill">Latest → oldest</div>
+                    </div>
+
+                    <div class="history-grid six">
+                        <label class="field compact"><span>BILL_AMT1 <b>*</b></span><input type="number"
+                                name="BILL_AMT1" step="0.01" placeholder="e.g. 5000" required></label>
+                        <label class="field compact"><span>BILL_AMT2 <b>*</b></span><input type="number"
+                                name="BILL_AMT2" step="0.01" placeholder="e.g. 6000" required></label>
+                        <label class="field compact"><span>BILL_AMT3 <b>*</b></span><input type="number"
+                                name="BILL_AMT3" step="0.01" placeholder="e.g. 4500" required></label>
+                        <label class="field compact"><span>BILL_AMT4 <b>*</b></span><input type="number"
+                                name="BILL_AMT4" step="0.01" placeholder="e.g. 4200" required></label>
+                        <label class="field compact"><span>BILL_AMT5 <b>*</b></span><input type="number"
+                                name="BILL_AMT5" step="0.01" placeholder="e.g. 4000" required></label>
+                        <label class="field compact"><span>BILL_AMT6 <b>*</b></span><input type="number"
+                                name="BILL_AMT6" step="0.01" placeholder="e.g. 3800" required></label>
+                    </div>
+
+                    <div class="section-head subhead">
+                        <div>
+                            <div class="section-kicker">04 / PAYMENT AMOUNTS</div>
+                            <h2>Recent payments</h2>
+                        </div>
+                        <div class="info-pill">Latest → oldest</div>
+                    </div>
+
+                    <div class="history-grid six">
+                        <label class="field compact"><span>PAY_AMT1 <b>*</b></span><input type="number" name="PAY_AMT1"
+                                min="0" step="0.01" placeholder="e.g. 2000" required></label>
+                        <label class="field compact"><span>PAY_AMT2 <b>*</b></span><input type="number" name="PAY_AMT2"
+                                min="0" step="0.01" placeholder="e.g. 1500" required></label>
+                        <label class="field compact"><span>PAY_AMT3 <b>*</b></span><input type="number" name="PAY_AMT3"
+                                min="0" step="0.01" placeholder="e.g. 1200" required></label>
+                        <label class="field compact"><span>PAY_AMT4 <b>*</b></span><input type="number" name="PAY_AMT4"
+                                min="0" step="0.01" placeholder="e.g. 1000" required></label>
+                        <label class="field compact"><span>PAY_AMT5 <b>*</b></span><input type="number" name="PAY_AMT5"
+                                min="0" step="0.01" placeholder="e.g. 900" required></label>
+                        <label class="field compact"><span>PAY_AMT6 <b>*</b></span><input type="number" name="PAY_AMT6"
+                                min="0" step="0.01" placeholder="e.g. 800" required></label>
+                    </div>
+
+                    <button class="predict-btn" type="submit" id="predictBtn">
+                        <span class="btn-icon">✦</span>
+                        <span>Run AI Risk Analysis</span>
+                        <span class="arrow">→</span>
+                    </button>
+                    <p class="privacy-note">Your entries are used only for this prediction request in this demo
+                        application.</p>
+                </form>
+            </div>
+
+            <aside class="result-panel glass" id="resultPanel">
+                <div class="result-top">
+                    <div>
+                        <div class="section-kicker">LIVE MODEL OUTPUT</div>
+                        <h2>Risk assessment</h2>
+                    </div>
+                    <div class="model-chip">CATBOOST</div>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div class="radar">
+                        <div class="radar-ring ring-1"></div>
+                        <div class="radar-ring ring-2"></div>
+                        <div class="radar-dot"></div>
+                    </div>
+                    <h3>Ready for analysis</h3>
+                    <p>Complete the customer profile and run the model to reveal the estimated default probability.</p>
+                </div>
+
+                <div class="result-content hidden" id="resultContent">
+                    <div class="risk-badge" id="riskBadge">LOWER RISK</div>
+                    <div class="probability-wrap">
+                        <div class="probability" id="probability">0.0%</div>
+                        <div class="probability-label">estimated default probability</div>
+                    </div>
+
+                    <div class="meter">
+                        <div class="meter-fill" id="meterFill"></div>
+                        <div class="threshold-marker" style="left: {{ threshold * 100 }}%"></div>
+                    </div>
+                    <div class="meter-labels">
+                        <span>0%</span>
+                        <span>Decision threshold {{ "%.0f"|format(threshold * 100) }}%</span>
+                        <span>100%</span>
+                    </div>
+
+                    <div class="decision-card">
+                        <div class="decision-icon" id="decisionIcon">✓</div>
+                        <div>
+                            <span>MODEL DECISION</span>
+                            <strong id="decisionText">Likely to Repay</strong>
+                            <p id="decisionMessage"></p>
+                        </div>
+                    </div>
+
+                    <div class="result-meta">
+                        <div><span>Model</span><strong>CatBoost</strong></div>
+                        <div><span>Threshold</span><strong>{{ "%.2f"|format(threshold) }}</strong></div>
+                    </div>
+                </div>
+
+                <div class="error-box hidden" id="errorBox"></div>
+
+                <div class="method-note">
+                    <span>ⓘ</span>
+                    <p><strong>How it works:</strong> the trained CatBoost model evaluates all 23 customer features. The
+                        app uses the optimized classification threshold saved with the project.</p>
+                </div>
+            </aside>
+        </section>
+
+        <footer>
+            <div>CreditGuard AI · Bibhujit Panigrahi</div>
+            <div>UCI Credit Card Default Dataset · CatBoost</div>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
